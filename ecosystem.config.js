@@ -13,8 +13,6 @@ module.exports = {
       out_file  : 'runtime.log',
       merge_logs: true,
       env: {
-      },
-      env_production : {
         NODE_ENV: 'production'
       }
     }
