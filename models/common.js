@@ -19,7 +19,23 @@ const dateModel = {
     updatedAt: {
         type: Sequelize.DATE,
         get() {
-            let v = this.getDataValue('createdAt');
+            let v = this.getDataValue('updatedAt');
+            return tool.formatDatetime(v);
+        }
+    }
+};
+const dateModelUnderScored = {
+    created_at: {
+        type: Sequelize.DATE,
+        get() {
+            let v = this.getDataValue('created_at');
+            return tool.formatDatetime(v);
+        }
+    },
+    updated_at: {
+        type: Sequelize.DATE,
+        get() {
+            let v = this.getDataValue('updated_at');
             return tool.formatDatetime(v);
         }
     }
@@ -27,10 +43,15 @@ const dateModel = {
 
 const getModel = (m, options = {}) => {
     let model = null;
-    if (options.withDate) {
-        model = dateModel;
+    // 添加时间戳属性
+    if (options.timestamps) {
+        if (options.underscored) {
+            model = dateModelUnderScored;
+        } else {
+            model = dateModel;
+        }
     }
-    return tool.extend({}, IDModel, model, m)
+    return tool.extend({}, IDModel, m, model)
 };
 
 module.exports = {
