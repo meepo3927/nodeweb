@@ -29,7 +29,9 @@ app.use((req, res, next) => {
 app.get('/', function (req, res) {
     res.send('Hello world');
 });
-// API Module
+// test
+app.use('/test', require('./routes/test.js'));
+// User Controller
 app.use('/user', require('./routes/user.js'));
 
 // 静态资源
